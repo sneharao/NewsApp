@@ -1,1 +1,16 @@
-<p>home works!</p>
+<div class="content" role="main">
+    <div class="boards-container">
+        <div class="boards">
+            <ul>
+                <li class="board-item" *ngFor="let item of boards">
+                    <div class="board-item-content">
+                        {{item.name}}
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="login-form-container">
+        <h3>Login to get Access to your personalized news</h3>
+    </div>
+</div>

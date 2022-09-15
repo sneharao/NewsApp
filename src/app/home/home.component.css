@@ -1,0 +1,38 @@
+.boards-container{
+    background: rgb(var(--ig-primary-background));
+    border: 1pxsolidrgb(var(--ig-elevated-separator));
+    border-radius: 8px;
+    margin-bottom: 0;
+    margin-top: 16px;
+    padding: 16px 0;
+}
+.boards{
+    align-items: stretch;
+    display: flex;
+    flex-direction: column;
+    height: 85px;
+    outline: none;
+    overflow-y: hidden;
+    position: relative;
+}
+.board-item{
+    border: 0;
+    font: inherit;
+    font-size: 100%;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    vertical-align: baseline;
+}
+.board-item-content{
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    height: 122px;
+    padding: 0 4px;
+    position: relative;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-tap-highlight-color: transparent;
+    top: 2px;
+    width: 66px;
+}
