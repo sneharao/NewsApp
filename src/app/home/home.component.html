@@ -1,16 +1,22 @@
 <div class="content" role="main">
     <div class="boards-container">
         <div class="boards">
-            <ul>
+            <ul class="board-list">
                 <li class="board-item" *ngFor="let item of boards">
-                    <div class="board-item-content">
+                    <div class="board-item-content" (click)="onBoardItemClick(item)">
                         {{item.name}}
                     </div>
                 </li>
             </ul>
         </div>
     </div>
-    <div class="login-form-container">
-        <h3>Login to get Access to your personalized news</h3>
+    <div class="news-container">
+        <h5>Drafts: {{noOfDrafts}}</h5>
+    </div>
+    <div class="news-container">
+        <h5>Published: {{noOfArchives}}</h5>
+    </div>
+    <div class="news-container">
+        <h5>Archives: {{noOfPublished}}</h5>
     </div>
 </div>

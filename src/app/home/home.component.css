@@ -1,28 +1,39 @@
 .boards-container{
-    background: rgb(var(--ig-primary-background));
-    border: 1pxsolidrgb(var(--ig-elevated-separator));
-    border-radius: 8px;
     margin-bottom: 0;
     margin-top: 16px;
     padding: 16px 0;
+    width: 100vh;
+    position: absolute;
+    top: 4vh;
+    left: 0;
 }
 .boards{
     align-items: stretch;
-    display: flex;
-    flex-direction: column;
-    height: 85px;
-    outline: none;
     overflow-y: hidden;
     position: relative;
+    /* background-color: var(--main-bg-color); */
+    height: 19vh;
+}
+.board-list {
+     display: flex;
+     flex-direction: row;
+     list-style: none;
 }
 .board-item{
-    border: 0;
-    font: inherit;
-    font-size: 100%;
-    margin: 0;
-    padding: 0;
-    position: absolute;
-    vertical-align: baseline;
+    width: 80px;
+    margin: 10px;
+    text-align: center;
+    line-height: 61px;
+    font-size: 19px;
+    height: 60px;
+    border: 2px solid var(--sub-bg-color);
+    border-radius: 5px;
+    background-color: var(--sub-bg-color);
+    color: var(--sub-font-color);
+    cursor: pointer;
+}
+.board-item:hover {
+    box-shadow: 0 4px 17px rgb(84 14 14 / 35%);
 }
 .board-item-content{
     box-sizing: border-box;
@@ -35,4 +46,20 @@
     -webkit-tap-highlight-color: transparent;
     top: 2px;
     width: 66px;
+}
+
+.news-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20vh;
+    flex-direction: column;
+    box-shadow: 0 4px 17px rgb(84 14 14 / 35%);
+    background-color: var(--main-bg-color);
+    color: var(--main-font-color);
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    contain: content;
+    cursor: pointer;
 }
