@@ -63,3 +63,6 @@
     contain: content;
     cursor: pointer;
 }
+.error-block {
+    color: red;
+}

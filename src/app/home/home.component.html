@@ -10,13 +10,21 @@
             </ul>
         </div>
     </div>
-    <div class="news-container">
-        <h5>Drafts: {{noOfDrafts}}</h5>
-    </div>
-    <div class="news-container">
-        <h5>Published: {{noOfArchives}}</h5>
-    </div>
-    <div class="news-container">
-        <h5>Archives: {{noOfPublished}}</h5>
-    </div>
+    <div class="loader" *ngIf="isLoading"></div>
+    <ng-container *ngIf="!isError;else errorBlock">
+        <div class="news-container">
+            <h5>Drafts: {{noOfDrafts}}</h5>
+        </div>
+        <div class="news-container">
+            <h5>Published: {{noOfArchives}}</h5>
+        </div>
+        <div class="news-container">
+            <h5>Archives: {{noOfPublished}}</h5>
+        </div>
+    </ng-container>
+    <ng-template #errorBlock>
+        <div class="news-container error-block">
+            <h5>An error has occured </h5>
+        </div>
+    </ng-template>
 </div>
