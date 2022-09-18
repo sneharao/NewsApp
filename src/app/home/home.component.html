@@ -10,6 +10,7 @@
             </ul>
         </div>
     </div>
+    <div class="news-summary">
     <div class="loader" *ngIf="isLoading"></div>
     <ng-container *ngIf="!isError;else errorBlock">
         <div class="news-container">
@@ -27,4 +28,5 @@
             <h5>An error has occured </h5>
         </div>
     </ng-template>
+    </div>
 </div>

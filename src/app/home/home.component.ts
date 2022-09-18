@@ -38,6 +38,7 @@ export class HomeComponent implements OnInit {
       this.noOfDrafts = drafts.length;
       this.noOfArchives = archives.length;
       this.noOfPublished = published.length;
+      this.isError = false;
     }, error => {
       console.log(error);
       this.isLoading = false;

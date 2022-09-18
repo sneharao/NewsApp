@@ -9,15 +9,15 @@
                 required
                 #emailId="ngModel"
                 />
-                <div *ngIf="loginForm.submitted && emailId.invalid" class="invalid-entry">
+                <div *ngIf="emailId.dirty && emailId.invalid" class="invalid-entry">
                     <div *ngIf="emailId.errors?.['required']; else otherBlock">Email Id is required</div>
                     <ng-template #otherBlock>Email id is invalid</ng-template>
                 </div>
             </div>
             <div class="card">
-                <input type="text" name="password" id="password" placeholder="Enter a password" class="form-control"  [(ngModel)]="model.password" required
-                #password="ngModel"/>
-                <div *ngIf="loginForm.submitted && password.invalid" class="invalid-entry">
+                <input type="password" name="password" id="password" placeholder="Enter a password" class="form-control"  [(ngModel)]="model.password" required
+                #password="ngModel" autocomplete="off"/>
+                <div *ngIf="password.dirty && password.invalid" class="invalid-entry">
                     <div *ngIf="password.errors?.['required'];">Password is required</div>
                 </div>
             </div>
