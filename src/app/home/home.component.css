@@ -11,7 +11,6 @@
     align-items: stretch;
     overflow-y: hidden;
     position: relative;
-    /* background-color: var(--main-bg-color); */
     height: 19vh;
 }
 .board-list {
@@ -47,22 +46,24 @@
     top: 2px;
     width: 66px;
 }
+.news-summary {
+    display: flex;
+    flex-direction: column;
+    margin-top: 14vh;
+}
 
 .news-container {
-    display: flex;
-    flex-wrap: wrap;
     margin-top: 8vh;
-    flex-direction: column;
     box-shadow: 0 4px 17px rgb(84 14 14 / 35%);
-    background-color: var(--main-bg-color);
+    background-color: white;
     color: var(--main-font-color);
-    justify-content: center;
-    align-items: center;
     width: 100%;
     padding: 10px;
     contain: content;
     cursor: pointer;
-    min-width: 40vw;
+    width: 40vw;
+    align-self: center;
+    text-align: center;
 }
 
 .error-block {

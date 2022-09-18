@@ -14,8 +14,32 @@
   --sub-font-color: #EDF5E0;
 }
 
-body{
-  overflow-x: hidden;
+body {
+  overflow: hidden;
+}
+
+.page-content {
+  min-height: 100vh;
+  min-width: 100vw;
+  overflow: hidden;
+  background-color: var(--main-bg-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.left-section {
+  margin-top: 12px;
+  max-width: 350px;
+}
+
+.right-section {
+  background-image: url(./assets/background1.jpg);
+  background-position: -188px -114px;
+  background-size: 468.32px 634.15px;
+  flex-basis: 380.32px;
+  margin: 12px 0px;
+  max-width: 279px;
 }
 
 h1,
@@ -62,10 +86,6 @@ button {
 }
 
 .toolbar {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
   height: 60px;
   display: flex;
   align-items: center;
@@ -78,15 +98,14 @@ button {
   margin: 0 16px;
 }
 
-.content {
+.main-content {
   display: flex;
-  margin: 20vh 5vh;
+  margin: 10vh 5vh;
   padding: 0 16px;
   max-width: 960px;
   flex-direction: column;
   align-items: center;
-  /* background: url(./assets/background.jfif) no-repeat; */
-  /* background-size: cover; */
+  background-color: white;
 }
 
 label {
@@ -116,23 +135,15 @@ svg.material-icons:not(:last-child) {
   background-color: #AD8174;
 }
 
-.login-form-container::before {
-  height: 5vh;
-  background-color: white;
-}
-
 .login-form-container {
   display: flex;
   flex-wrap: wrap;
-  margin-top: 16px;
-  flex-direction: column;
+  flex-direction: row;
   box-shadow: 0 4px 17px rgb(84 14 14 / 35%);
-  background-color: var(--main-bg-color);
   color: var(--main-font-color);
   justify-content: center;
-  align-items: center;
   width: 100%;
-  padding: 70px 20px 50px 20px;
+  padding: 15px;
   contain: content;
 }
 
@@ -235,31 +246,45 @@ footer {
   border-top: 5px solid var(--sub-bg-color);
   width: 84px;
   height: 84px;
-  -webkit-animation: spin 2s linear infinite; /* Safari */
+  -webkit-animation: spin 2s linear infinite;
+  /* Safari */
   animation: spin 2s linear infinite;
   margin-top: 40vh;
 }
 
 /* Safari */
 @-webkit-keyframes spin {
-  0% { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(360deg); }
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* Responsive Styles */
 
-@media screen and (max-width: 767px) {
- 
-}
+@media screen and (max-width: 767px) {}
 
-@media screen and (max-width: 575px) and (min-width: 600px) {
-  .content {
-    display: flex;
-    margin: 10vh 5vh;
+@media screen and (max-width: 575px) and (min-width: 300px) {
+  .main-content {
+    margin: 2vh 5vh;
+  }
+  .right-section{
+    display: none;
+  }
+  body{
+    overflow-y: auto;
   }
 }
