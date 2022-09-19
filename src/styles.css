@@ -35,8 +35,9 @@ body {
 
 .right-section {
   background-image: url(./assets/background1.jpg);
-  background-position: -188px -114px;
-  background-size: 468.32px 634.15px;
+  background-position: -314px 2px;
+  background-size: cover;
+  background-repeat: no-repeat;
   flex-basis: 380.32px;
   margin: 12px 0px;
   max-width: 279px;
@@ -281,10 +282,12 @@ footer {
   .main-content {
     margin: 2vh 5vh;
   }
-  .right-section{
+
+  .right-section {
     display: none;
   }
-  body{
+
+  body {
     overflow-y: auto;
   }
 }

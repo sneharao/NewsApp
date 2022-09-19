@@ -1,32 +1,55 @@
 <section>
     <div class="boards-container">
         <div class="boards">
+
             <ul class="board-list">
+                <li class="board-item">
+                    Filter by :
+                </li>
                 <li class="board-item" *ngFor="let item of boards">
                     <div class="board-item-content" (click)="onBoardItemClick(item)">
                         {{item.name}}
                     </div>
                 </li>
+                <li class="board-item
+                ">
+                    <select>
+                        <option>Drafts</option>
+                        <option>Published</option>
+                        <option>Archived</option>
+                    </select>
+                </li>
             </ul>
         </div>
     </div>
     <div class="news-summary">
-    <div class="loader" *ngIf="isLoading"></div>
-    <ng-container *ngIf="!isError;else errorBlock">
-        <div class="news-container">
-            <h5>Drafts: {{noOfDrafts}}</h5>
-        </div>
-        <div class="news-container">
-            <h5>Published: {{noOfArchives}}</h5>
-        </div>
-        <div class="news-container">
-            <h5>Archives: {{noOfPublished}}</h5>
-        </div>
-    </ng-container>
-    <ng-template #errorBlock>
-        <div class="news-container error-block">
-            <h5>An error has occured </h5>
-        </div>
-    </ng-template>
+
+        <div class="loader" *ngIf="isLoading"></div>
+        <ng-container *ngIf="!isError; then newsBlock; else errorBlock">
+        </ng-container>
+
+        <ng-template #newsBlock>
+            <div class="news-container" *ngFor="let item of draftNews">
+                <svg width="47vw" height="15vh">
+                    <image xlink:href="https://dev.w3.org/SVG/tools/svgweb/samples/svg-files/google.svg" width="47vw"
+                        height="15vh" />
+                </svg>
+                <div class="news-details">
+                    <p>Author : {{item.author}}</p>
+                    <p>Title: {{item.title}}</p>
+                    <p>Description: {{item.description}}</p>
+                    <p>Created At: {{item.createdAt}}</p>
+                </div>
+            </div>
+        </ng-template>
+
+        <ng-template #errorBlock>
+            <div class="news-container error-block">
+                <h5>An error has occured </h5>
+            </div>
+        </ng-template>
+    </div>
+    <div class="create-news-button">
+        <input type="image" src="../../assets/tab.png" name="createNews" class="btTxt submit" id="createNews" />
     </div>
 </section>

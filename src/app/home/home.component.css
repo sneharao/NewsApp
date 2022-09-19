@@ -1,4 +1,4 @@
-.boards-container{
+.boards-container {
     margin-bottom: 0;
     margin-top: 16px;
     padding: 16px 0;
@@ -7,65 +7,109 @@
     top: 4vh;
     left: 0;
 }
-.boards{
+
+.boards {
     align-items: stretch;
     overflow-y: hidden;
     position: relative;
     height: 19vh;
 }
+
 .board-list {
-     display: flex;
-     flex-direction: row;
-     list-style: none;
+    display: flex;
+    flex-direction: row;
+    list-style: none;
 }
-.board-item{
+
+.board-item {
     width: 80px;
     margin: 10px;
     text-align: center;
-    line-height: 61px;
+    line-height: 36px;
     font-size: 19px;
-    height: 60px;
+    height: 32px;
     border: 2px solid var(--sub-bg-color);
-    border-radius: 5px;
+    border-radius: 18px;
     background-color: var(--sub-bg-color);
     color: var(--sub-font-color);
     cursor: pointer;
 }
-.board-item:hover {
-    box-shadow: 0 4px 17px rgb(84 14 14 / 35%);
+
+ul.board-list>li:last-child {
+    width: 100px;
+    height: 35px;
 }
-.board-item-content{
+
+ul.board-list>li:first-child {
+    width: 100px;
+    height: 35px;
+    background: none;
+    color: var(--sub-bg-color);
+    border: none;
+}
+
+.board-item:hover {
+    box-shadow: 0 4px 17px rgba(14, 15, 84, 0.35);
+}
+
+.board-item-content {
     box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    height: 122px;
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* height: 122px; */
     padding: 0 4px;
-    position: relative;
+    /* position: relative; */
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     -webkit-tap-highlight-color: transparent;
-    top: 2px;
-    width: 66px;
+    /* top: 2px; */
+    /* width: 66px; */
 }
+
 .news-summary {
     display: flex;
     flex-direction: column;
-    margin-top: 14vh;
+    margin: 6vh 3vh 1vh 3vh;
+    overflow-x: auto;
 }
 
 .news-container {
-    margin-top: 8vh;
+    margin-top: 3vh;
     box-shadow: 0 4px 17px rgb(84 14 14 / 35%);
-    background-color: white;
+    background: #EDF5E0;
     color: var(--main-font-color);
-    width: 100%;
     padding: 10px;
     contain: content;
     cursor: pointer;
-    width: 40vw;
-    align-self: center;
-    text-align: center;
+    width: 47vw;
+    border-radius: 19px;
+}
+
+.news-details {
+    padding: 2px 16px;
 }
 
 .error-block {
     color: red;
+}
+
+select {
+    padding: 5px;
+    border: 0px;
+    background: #05396B;
+    color: var(--sub-font-color);
+    font-size: 14px;
+}
+
+select:focus-visible {
+    outline: none !important;
+}
+
+.create-news-button input {
+    width: 6vh;
+    height: 6vh;
+    bottom: 57vh;
+    position: fixed;
+    bottom: 58px;
+    right: 0;
+    background: none;
 }

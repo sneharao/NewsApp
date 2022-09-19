@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Board } from '../models/news.model';
+import { Router } from '@angular/router';
+import { Board, News } from '../models/news.model';
 import { BoardsService } from '../services/boards.service';
 
 @Component({
@@ -9,17 +10,17 @@ import { BoardsService } from '../services/boards.service';
 })
 export class HomeComponent implements OnInit {
   public boards: Board[];
-  public noOfDrafts: number;
-  public noOfPublished: number;
-  public noOfArchives: number;
+  public draftNews: News[];
+  public publishedNews: News[];
+  public archivedNews: News[];
   public isError: boolean;
   public isLoading: boolean;
 
-  constructor(private boardsService: BoardsService) {
+  constructor(private boardsService: BoardsService, private router: Router) {
     this.boards = [];
-    this.noOfDrafts = 0;
-    this.noOfArchives = 0;
-    this.noOfPublished = 0;
+    this.draftNews = [];
+    this.publishedNews = [];
+    this.archivedNews = [];
     this.isError = false;
     this.isLoading = true;
   }
@@ -31,21 +32,22 @@ export class HomeComponent implements OnInit {
     });
   }
 
+
   onBoardItemClick(selectedBoardItem: Board) {
     this.isLoading = true;
-    this.boardsService.retrieveNewsByBoardId(selectedBoardItem.id).subscribe(data => {
-      const { drafts, published, archives } = data;
-      this.noOfDrafts = drafts.length;
-      this.noOfArchives = archives.length;
-      this.noOfPublished = published.length;
-      this.isError = false;
-    }, error => {
-      console.log(error);
-      this.isLoading = false;
-      this.isError = true;
-    }, () => {
-      this.isLoading = false;
+    this.boardsService.retrieveNewsByBoardId(selectedBoardItem.id).subscribe({
+      next: (data) => {
+        const { drafts, published, archives } = data;
+        this.draftNews = drafts;
+        this.publishedNews = published;
+        this.archivedNews = archives;
+        this.isError = false;
+      },
+      error: (e) => {
+        this.isLoading = false;
+        this.isError = true;
+      },
+      complete: () => this.isLoading = false
     });
   }
-
 }
