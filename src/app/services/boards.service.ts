@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Board, NewsType } from '../models/news.model';
+import { Board, News, NewsType } from '../models/news.model';
 
 @Injectable({
   providedIn: 'root'
@@ -20,5 +20,13 @@ export class BoardsService {
 
   createNews(enteredData: any) {
     return this.http.post('http://localhost:8080/v1/news',enteredData);
+  }
+
+  deleteNews(newsId: string) {
+    return this.http.delete('http://localhost:8080/v1/news/'+newsId);
+  }
+
+  editNews(news: News) {
+    return this.http.put('http://localhost:8080/v1/news/',news);
   }
 }

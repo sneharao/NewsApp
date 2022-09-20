@@ -30,16 +30,16 @@
 
         <ng-template #newsBlock>
             <div class="news-container" *ngFor="let item of selectedNews">
-                <!-- <svg width="47vw" height="15vh">
-                    <image xlink:href="{item.imageURL}" width="47vw"
-                        height="15vh" />
-                </svg> -->
-                <img [src]="item.imageURL" width="47vw" height="15vh"/>
+                <img [src]="item.imageURL" width="47vw" height="15vh" />
                 <div class="news-details">
-                    <p>Author : {{item.author}}</p>
-                    <p>Title: {{item.title}}</p>
-                    <p>Description: {{item.description}}</p>
-                    <p>Created At: {{item.CreatedAt}}</p>
+                    <h4>{{item.title}}</h4>
+                    <p>{{item.description}}</p>
+                    <p style="margin-top:5px;"> - {{item.author}}</p>
+                    <p>{{item.CreatedAt | date: "dd/MM/YY"}}</p>
+                </div>
+                <div class="edit-delete-btns">
+                    <i class="fa fa-edit" style="font-size:24px" (click)="onClickEditNews(item)"></i>
+                    <i class="fa fa-remove" style="font-size:24px" (click)="onDeleteNews(item.id)"></i>
                 </div>
             </div>
         </ng-template>
@@ -51,7 +51,9 @@
         </ng-template>
     </div>
     <div class="create-news-button">
-        <input type="image" src="../../assets/tab.png" name="createNews" class="btTxt submit" id="createNews" (click)="isShowCreateModal = true;"/>
+        <input type="image" src="../../assets/tab.png" name="createNews" class="btTxt submit" id="createNews"
+            (click)="isShowCreateModal = true;" />
     </div>
-    <app-create-news *ngIf="isShowCreateModal" (onClickClose)="closeModal()" (onClickSubmit)="createNews($event)"></app-create-news>
+    <app-create-news *ngIf="isShowCreateModal" [newsForEdit]=modalValue (onClickClose)="closeModal()" (onClickSubmit)="createNews($event)">
+    </app-create-news>
 </section>

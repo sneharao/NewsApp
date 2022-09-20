@@ -3,7 +3,7 @@
       <header> 
         <span (click)="onClickCloseButton()"
         class="w3-button w3-display-topright">&times;</span>
-        <h2>Create Modal</h2>
+        <h2>{{title}}</h2>
       </header>
       <div class="news-form">
         <form [formGroup]="newsForm" (ngSubmit)="onClickSubmitButton()">
@@ -21,7 +21,7 @@
             <textarea id="description" type="text" formControlName="description" rows="3" cols="40"></textarea>
         
             <label for="image-url">Image Url: </label>
-            <input id="image-url" type="text" formControlName="imageUrl">
+            <input id="image-url" type="text" formControlName="imageURL">
             
             <button type="submit" [disabled]="!newsForm.valid">Submit</button>
           </form>

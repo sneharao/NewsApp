@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { BoardsService } from '../services/boards.service';
+import { News } from '../models/news.model';
 
 @Component({
   selector: 'app-create-news',
@@ -8,25 +8,35 @@ import { BoardsService } from '../services/boards.service';
   styleUrls: ['./create-news.component.css']
 })
 export class CreateNewsComponent implements OnInit {
-  @Input() isShowModal: boolean = false;
+  @Input() newsForEdit?: News;
   @Output() onClickClose = new EventEmitter();
   @Output() onClickSubmit = new EventEmitter();
+  title = '';
 
   newsForm = new FormGroup({
     boardId: new FormControl(''),
     author: new FormControl(''),
     title: new FormControl(''),
     description: new FormControl(''),
-    imageUrl: new FormControl(''),
+    imageURL: new FormControl(''),
   });
 
   constructor() { }
 
   ngOnInit(): void {
-   
+    if (this.newsForEdit) {
+      this.title = 'Edit News';
+      this.newsForm.patchValue(this.newsForEdit);
+    } else {
+      this.title = 'Create News'; 
+    }
   }
   onClickSubmitButton() {
-   this.onClickSubmit.emit(this.newsForm.value);
+    if (this.newsForEdit) {
+      this.onClickSubmit.emit({ ...this.newsForm.value, id: this.newsForEdit.id });
+    } else {
+      this.onClickSubmit.emit(this.newsForm.value);
+    }
   }
   onClickCloseButton() {
     this.onClickClose.emit('');

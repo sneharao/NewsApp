@@ -69,23 +69,27 @@ ul.board-list>li:first-child {
     display: flex;
     flex-direction: column;
     margin: 6vh 3vh 1vh 3vh;
-    overflow-x: auto;
+    overflow-y: auto;
 }
 
 .news-container {
-    margin-top: 3vh;
-    box-shadow: 0 4px 17px rgb(84 14 14 / 35%);
+    margin-top: 5vh;
+    box-shadow: 0 4px 17px rgb(159 199 174);
     background: #EDF5E0;
     color: var(--main-font-color);
     padding: 10px;
     contain: content;
     cursor: pointer;
-    width: 47vw;
-    border-radius: 19px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    height: 26vh;
 }
 
 .news-details {
     padding: 2px 16px;
+    overflow-y: auto;
+    margin-top: 13px;
 }
 
 .error-block {
@@ -112,4 +116,19 @@ select:focus-visible {
     bottom: 58px;
     right: 0;
     background: none;
+}
+.edit-delete-btns {
+    position: absolute;
+    right: 10px;
+    top: 6px;
+    z-index: 3;
+    padding: 2px;
+    display: flex;
+    justify-content: space-between;
+    width: 47px;
+}
+
+.news-container img{
+   width: 43%;
+    height: 26vh;
 }

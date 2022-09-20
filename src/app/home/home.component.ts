@@ -17,12 +17,14 @@ export class HomeComponent implements OnInit {
   public isLoading: boolean;
   selectedNews: News[];
   isShowCreateModal = false;
+  modalValue: News | any;
 
   constructor(private boardsService: BoardsService, private router: Router) {
     this.boards = [];
     this.draftNews = [];
     this.publishedNews = [];
     this.archivedNews = [];
+    this.modalValue = null;
     this.isError = false;
     this.isLoading = true;
     this.selectedNews = this.filteredNews();
@@ -57,12 +59,12 @@ export class HomeComponent implements OnInit {
   }
 
   filterByNewsType(event: any) {
-    const {target:{value}} = event;
+    const { target: { value } } = event;
     this.selectedNews = this.filteredNews(value);
   }
 
   filteredNews(newsType?: string) {
-    switch(newsType) {
+    switch (newsType) {
       case 'draft':
         return this.draftNews;
       case 'published':
@@ -74,24 +76,45 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  createNews(formValue:any) {
+  createNews(formValue: any) {
     this.isLoading = true;
     this.isShowCreateModal = false;
-    this.boardsService.createNews(formValue).subscribe({
-      next: (data) => {
-        console.log(data);
+    if (!this.modalValue) {
+      this.boardsService.createNews(formValue).subscribe({
+        next: (data) => {
+          console.log(data);
+          this.onBoardItemClick(this.boards[0]);
+        },
+        error: (e) => {
+          this.isLoading = false;
+          this.isError = true;
+        },
+        complete: () => this.isLoading = false
+      });
+    } else {
+      this.boardsService.editNews(formValue).subscribe(data => {
         this.onBoardItemClick(this.boards[0]);
-      },
-      error: (e) => {
-        this.isLoading = false;
-        this.isError = true;
-      },
-      complete: () => this.isLoading = false
-    })
+      });
+    }
+  }
+
+  onClickEditNews(itemValue: News) {
+    this.isShowCreateModal = true;
+    this.modalValue = itemValue;
   }
 
   closeModal() {
     this.isShowCreateModal = false;
+    this.modalValue = null;
+  }
+
+  onDeleteNews(newsId: string) {
+    if(confirm("Are you sure to delete? ")) {
+      this.boardsService.deleteNews(newsId).subscribe(data => {
+        console.log(data);
+        this.onBoardItemClick(this.boards[0]);
+      });
+    }
   }
 
 }
