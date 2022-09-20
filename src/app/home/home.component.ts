@@ -15,6 +15,8 @@ export class HomeComponent implements OnInit {
   public archivedNews: News[];
   public isError: boolean;
   public isLoading: boolean;
+  selectedNews: News[];
+  isShowCreateModal = false;
 
   constructor(private boardsService: BoardsService, private router: Router) {
     this.boards = [];
@@ -23,12 +25,14 @@ export class HomeComponent implements OnInit {
     this.archivedNews = [];
     this.isError = false;
     this.isLoading = true;
+    this.selectedNews = this.filteredNews();
   }
 
   ngOnInit(): void {
     this.boardsService.retriveAllBoards().subscribe(data => {
       this.isLoading = false;
       this.boards = data;
+      this.onBoardItemClick(this.boards[0]);
     });
   }
 
@@ -42,6 +46,7 @@ export class HomeComponent implements OnInit {
         this.publishedNews = published;
         this.archivedNews = archives;
         this.isError = false;
+        this.selectedNews = this.filteredNews();
       },
       error: (e) => {
         this.isLoading = false;
@@ -50,4 +55,43 @@ export class HomeComponent implements OnInit {
       complete: () => this.isLoading = false
     });
   }
+
+  filterByNewsType(event: any) {
+    const {target:{value}} = event;
+    this.selectedNews = this.filteredNews(value);
+  }
+
+  filteredNews(newsType?: string) {
+    switch(newsType) {
+      case 'draft':
+        return this.draftNews;
+      case 'published':
+        return this.publishedNews;
+      case 'archhived':
+        return this.archivedNews;
+      default:
+        return this.draftNews;
+    }
+  }
+
+  createNews(formValue:any) {
+    this.isLoading = true;
+    this.isShowCreateModal = false;
+    this.boardsService.createNews(formValue).subscribe({
+      next: (data) => {
+        console.log(data);
+        this.onBoardItemClick(this.boards[0]);
+      },
+      error: (e) => {
+        this.isLoading = false;
+        this.isError = true;
+      },
+      complete: () => this.isLoading = false
+    })
+  }
+
+  closeModal() {
+    this.isShowCreateModal = false;
+  }
+
 }

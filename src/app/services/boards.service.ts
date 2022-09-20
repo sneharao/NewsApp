@@ -17,4 +17,8 @@ export class BoardsService {
   retrieveNewsByBoardId(boardId: string): Observable<NewsType> {
     return this.http.get<NewsType>('http://localhost:8080/v1/board/'+boardId+'/news');
   }
+
+  createNews(enteredData: any) {
+    return this.http.post('http://localhost:8080/v1/news',enteredData);
+  }
 }

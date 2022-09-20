@@ -13,10 +13,10 @@
                 </li>
                 <li class="board-item
                 ">
-                    <select>
-                        <option>Drafts</option>
-                        <option>Published</option>
-                        <option>Archived</option>
+                    <select (change)="filterByNewsType($event)">
+                        <option value="draft">Drafts</option>
+                        <option value="published">Published</option>
+                        <option value="archived">Archived</option>
                     </select>
                 </li>
             </ul>
@@ -29,16 +29,17 @@
         </ng-container>
 
         <ng-template #newsBlock>
-            <div class="news-container" *ngFor="let item of draftNews">
-                <svg width="47vw" height="15vh">
-                    <image xlink:href="https://dev.w3.org/SVG/tools/svgweb/samples/svg-files/google.svg" width="47vw"
+            <div class="news-container" *ngFor="let item of selectedNews">
+                <!-- <svg width="47vw" height="15vh">
+                    <image xlink:href="{item.imageURL}" width="47vw"
                         height="15vh" />
-                </svg>
+                </svg> -->
+                <img [src]="item.imageURL" width="47vw" height="15vh"/>
                 <div class="news-details">
                     <p>Author : {{item.author}}</p>
                     <p>Title: {{item.title}}</p>
                     <p>Description: {{item.description}}</p>
-                    <p>Created At: {{item.createdAt}}</p>
+                    <p>Created At: {{item.CreatedAt}}</p>
                 </div>
             </div>
         </ng-template>
@@ -50,6 +51,7 @@
         </ng-template>
     </div>
     <div class="create-news-button">
-        <input type="image" src="../../assets/tab.png" name="createNews" class="btTxt submit" id="createNews" />
+        <input type="image" src="../../assets/tab.png" name="createNews" class="btTxt submit" id="createNews" (click)="isShowCreateModal = true;"/>
     </div>
+    <app-create-news *ngIf="isShowCreateModal" (onClickClose)="closeModal()" (onClickSubmit)="createNews($event)"></app-create-news>
 </section>

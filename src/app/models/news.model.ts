@@ -16,6 +16,6 @@ export type News ={
     title: string;
     description: string;
     imageURL: string;
-    createdAt: string;
+    CreatedAt: string;
     status: string;
   }
