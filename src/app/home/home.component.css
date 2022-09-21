@@ -1,18 +1,13 @@
 .boards-container {
     margin-bottom: 0;
-    margin-top: 16px;
-    padding: 16px 0;
     width: 100vw;
-    position: absolute;
-    top: 4vh;
-    left: 0;
 }
 
 .boards {
     align-items: stretch;
     overflow-y: hidden;
     position: relative;
-    height: 19vh;
+    height: auto;
 }
 
 .board-list {
@@ -66,26 +61,21 @@ ul.board-list>li:last-child {
 
 .board-item-content {
     box-sizing: border-box;
-    /* display: flex; */
-    /* flex-direction: column; */
-    /* height: 122px; */
     padding: 0 4px;
-    /* position: relative; */
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     -webkit-tap-highlight-color: transparent;
-    /* top: 2px; */
-    /* width: 66px; */
+
 }
 
 .news-summary {
     display: flex;
     flex-direction: column;
-    margin: 6vh 3vh 1vh 3vh;
+    margin: 0vh 3vh 1vh 3vh;
     overflow-y: auto;
 }
 
 .news-container {
-    margin-top: 5vh;
+    margin-top: 2vh;
     box-shadow: 0 4px 17px rgb(159 199 174);
     background: #EDF5E0;
     color: var(--main-font-color);
@@ -150,4 +140,36 @@ select:focus-visible {
 .action-btns {
     font-size: 24px;
     margin: 0px 5px;
+}
+
+.alignCenter {
+    margin: auto;
+}
+
+/** Small Devices **/
+@media screen and (max-width: 575px) and (min-width: 300px) {
+
+    .board-list {
+        flex-wrap: wrap;
+        padding: 0px;
+    }
+
+    .board-item {
+        font-size: 15px;
+        width: auto !important;
+        padding: 3px;
+    }
+
+    .news-container h4 {
+        font-size: smaller;
+    }
+
+    .news-container p {
+        font-size: small;
+    }
+
+    .action-btns {
+        font-size: 18px;
+        margin: 0px 6px;
+    }
 }

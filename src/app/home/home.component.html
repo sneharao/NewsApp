@@ -11,8 +11,7 @@
                         {{item.name}}
                     </div>
                 </li>
-                <li class="board-item
-                ">
+                <li class="board-item">
                     <select (change)="filterByNewsType($event)" [(ngModel)]="selectedNewsType">
                         <option value="draft">Drafts</option>
                         <option value="published">Published</option>
@@ -31,8 +30,8 @@
         </ng-template>
        
         <ng-template #newsBlock>
-            <div class="news-container" *ngIf="selectedNews.length == 0">
-                <h5>No News Present , create to view this section </h5>
+            <div class="news-container" *ngIf="selectedNews.length == 0" >
+                <h5 class="alignCenter">No News Present , create to view this section </h5>
             </div>
             <div class="news-container" *ngFor="let item of selectedNews">
                 <img [src]="item.imageURL" width="47vw" height="15vh" />
@@ -55,7 +54,7 @@
 
         <ng-template #errorBlock>
             <div class="news-container error-block">
-                <h5>An error has occured </h5>
+                <h5 class="alignCenter">An error has occured </h5>
             </div>
         </ng-template>
     </div>

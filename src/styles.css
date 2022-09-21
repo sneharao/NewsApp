@@ -280,6 +280,7 @@ footer {
 
 @media screen and (max-width: 767px) {}
 
+/** Small Devices **/
 @media screen and (max-width: 575px) and (min-width: 300px) {
   .main-content {
     margin: 2vh 5vh;
