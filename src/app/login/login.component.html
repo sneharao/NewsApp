@@ -8,7 +8,7 @@
             <form #loginForm="ngForm" (ngSubmit)="onLogin(loginForm)">
                 <div class="card">
                     <input type="email" name="emailId" id="email-id" placeholder="Enter valid email"
-                        class="form-control" [(ngModel)]="model.emailId"
+                        class="form-control" ngModel
                         pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required #emailId="ngModel" />
                     <div *ngIf="emailId.dirty && emailId.invalid" class="invalid-entry">
                         <div *ngIf="emailId.errors?.['required']; else otherBlock">Email Id is required</div>
@@ -17,7 +17,7 @@
                 </div>
                 <div class="card">
                     <input type="password" name="password" id="password" placeholder="Enter a password"
-                        class="form-control" [(ngModel)]="model.password" required #password="ngModel"
+                        class="form-control" ngModel required #password="ngModel"
                         autocomplete="off" />
                     <div *ngIf="password.dirty && password.invalid" class="invalid-entry">
                         <div *ngIf="password.errors?.['required'];">Password is required</div>

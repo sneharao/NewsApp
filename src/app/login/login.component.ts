@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -7,18 +7,18 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
-  model: any = {};
+export class LoginComponent {
+  @ViewChild('loginForm', { static: true })
+  userForm!: NgForm;
+
   constructor(private router: Router) { }
 
-  ngOnInit(): void {
-  }
-
-  onLogin(form: NgForm) {
-    console.log(form);
-    if(form.valid) {
+  onLogin(form: any) {
+    if (form.valid) {
       this.router.navigate(['/home']);
-      sessionStorage.setItem('userId',form.value.emailId);
+      sessionStorage.setItem('userId', form.value.emailId);
+    } else {
+      alert('Please fill valid values');
     }
   }
 
