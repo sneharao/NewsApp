@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
     console.log(form);
     if(form.valid) {
       this.router.navigate(['/home']);
+      sessionStorage.setItem('userId',form.value.emailId);
     }
   }
 
