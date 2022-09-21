@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Board, News } from '../models/news.model';
+import { Board, News, Nullable } from '../models/news.model';
 import { BoardsService } from '../services/boards.service';
-
-type Nullable<T> = T | null;
 
 @Component({
   selector: 'app-home',
@@ -20,7 +18,7 @@ export class HomeComponent implements OnInit {
   isShowCreateModal = false;
   modalValue: News | any;
   selectedNewsType = 'draft';
-  selectedBoard:Nullable<Board> = null;
+  selectedBoard: Nullable<Board> = null;
 
   constructor(private boardsService: BoardsService) {
     this.boards = [];
@@ -45,7 +43,7 @@ export class HomeComponent implements OnInit {
 
   onBoardItemClick(selectedBoardItem: Nullable<Board>) {
     this.isLoading = true;
-    if(!selectedBoardItem) {
+    if (!selectedBoardItem) {
       return;
     }
     this.selectedBoard = selectedBoardItem;
@@ -69,6 +67,7 @@ export class HomeComponent implements OnInit {
   filterByNewsType(event: any) {
     const { target: { value } } = event;
     console.log(value);
+    this.selectedNewsType = value;
     this.selectedNews = this.filteredNews(value);
   }
 
@@ -87,7 +86,7 @@ export class HomeComponent implements OnInit {
 
   responseHandler = {
     next: (x: any) => this.onBoardItemClick(this.selectedBoard),
-    error: (error:any) => {
+    error: (error: any) => {
       this.isLoading = false;
       this.isError = true;
     },
@@ -115,13 +114,13 @@ export class HomeComponent implements OnInit {
   }
 
   onDeleteNews(newsId: string) {
-    if(confirm("Are you sure to delete? ")) {
+    if (confirm("Are you sure to delete? ")) {
       this.boardsService.deleteNews(newsId).subscribe(this.responseHandler);
     }
   }
 
-  onMoveNewsToDifferentType(newsId: string,type: string) {
-    this.boardsService.postNewsTo(newsId,type).subscribe(this.responseHandler);
+  onMoveNewsToDifferentType(newsId: string, type: string) {
+    this.boardsService.postNewsTo(newsId, type).subscribe(this.responseHandler);
   }
 
 }

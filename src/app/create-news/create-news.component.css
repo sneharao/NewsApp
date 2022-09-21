@@ -6,13 +6,28 @@ button {
     margin-top: 22px;
 }
 
+select {
+    width: 47%;
+    margin-bottom: 14px;
+    display: block;
+    height: 30px;
+    border: 1px solid var(--sub-bg-color);
+
+}
+
 textarea {
     display: block;
     margin-bottom: 14px;
+    border: 1px solid var(--sub-bg-color);
 }
 
 label{
-    margin-bottom: 4px;
+    margin-bottom: 14px;
+}
+
+input {
+    border: 1px solid var(--sub-bg-color);
+    margin-bottom: 15px;
 }
 
 .create-modal {

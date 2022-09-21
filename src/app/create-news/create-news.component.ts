@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { News } from '../models/news.model';
+import { Board, News } from '../models/news.model';
 
 @Component({
   selector: 'app-create-news',
@@ -9,6 +9,7 @@ import { News } from '../models/news.model';
 })
 export class CreateNewsComponent implements OnInit {
   @Input() newsForEdit?: News;
+  @Input() boardList?: Board[];
   @Output() onClickClose = new EventEmitter();
   @Output() onClickSubmit = new EventEmitter();
   title = '';
@@ -28,7 +29,9 @@ export class CreateNewsComponent implements OnInit {
       this.title = 'Edit News';
       this.newsForm.patchValue(this.newsForEdit);
     } else {
-      this.title = 'Create News'; 
+      this.title = 'Create News';
+      const loggedInUserId = sessionStorage.getItem('userId');
+      this.newsForm.patchValue({ author: loggedInUserId })
     }
   }
   onClickSubmitButton() {

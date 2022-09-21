@@ -1,3 +1,5 @@
+export type Nullable<T> = T | null;
+
 export type Board = {
     id: string;
     name: string;

@@ -1,30 +1,35 @@
 <div class="create-modal">
-    <div class="create-modal-content">
-      <header> 
-        <span (click)="onClickCloseButton()"
-        class="w3-button w3-display-topright">&times;</span>
-        <h2>{{title}}</h2>
-      </header>
-      <div class="news-form">
-        <form [formGroup]="newsForm" (ngSubmit)="onClickSubmitButton()">
+  <div class="create-modal-content">
+    <header>
+      <span (click)="onClickCloseButton()" class="w3-button w3-display-topright">&times;</span>
+      <h2>{{title}}</h2>
+    </header>
+    <div class="news-form">
+      <form [formGroup]="newsForm" (ngSubmit)="onClickSubmitButton()">
 
-            <label for="board-id">Board Id: </label>
-            <input id="board-id" type="text" formControlName="boardId">
-          
-            <label for="author">Author: </label>
-            <input id="author" type="text" formControlName="author">
+        <label for="board-id">Board Id: </label>
+        <input id="board-id" type="text" formControlName="boardId" *ngIf="newsForEdit;else selectBoard">
+        <ng-template #selectBoard>
+          <select formControlName="boardId" id="board-id">
+            <option [value]="item.id" *ngFor="let item of boardList">{{item.name}}</option>
+          </select>
+        </ng-template>
         
-            <label for="title">Title: </label>
-            <input id="title" type="text" formControlName="title">
-        
-            <label for="description">Description: </label>
-            <textarea id="description" type="text" formControlName="description" rows="3" cols="40"></textarea>
-        
-            <label for="image-url">Image Url: </label>
-            <input id="image-url" type="text" formControlName="imageURL">
-            
-            <button type="submit" [disabled]="!newsForm.valid">Submit</button>
-          </form>
-      </div>
+
+        <label for="author">Author: </label>
+        <input id="author" type="text" formControlName="author">
+
+        <label for="title">Title: </label>
+        <input id="title" type="text" formControlName="title">
+
+        <label for="description">Description: </label>
+        <textarea id="description" type="text" formControlName="description" rows="3" cols="40"></textarea>
+
+        <label for="image-url">Image Url: </label>
+        <input id="image-url" type="text" formControlName="imageURL">
+
+        <button type="submit" [disabled]="!newsForm.valid">Submit</button>
+      </form>
     </div>
+  </div>
 </div>

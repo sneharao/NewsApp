@@ -24,23 +24,29 @@
     </div>
     <div class="news-summary">
 
-        <div class="loader" *ngIf="isLoading"></div>
-        <ng-container *ngIf="!isError; then newsBlock; else errorBlock">
-        </ng-container>
-
+        <div class="loader" *ngIf="isLoading;else displayData" ></div>
+        <ng-template #displayData>
+            <ng-container *ngIf="!isError; then newsBlock; else errorBlock">
+            </ng-container>
+        </ng-template>
+       
         <ng-template #newsBlock>
+            <div class="news-container" *ngIf="selectedNews.length == 0">
+                <h5>No News Present , create to view this section </h5>
+            </div>
             <div class="news-container" *ngFor="let item of selectedNews">
                 <img [src]="item.imageURL" width="47vw" height="15vh" />
                 <div class="news-details">
                     <h4>{{item.title}}</h4>
                     <p>{{item.description}}</p>
                     <p style="margin-top:5px;"> - {{item.author}}</p>
-                    <p>{{item.CreatedAt | date: "dd/MM/YY"}}</p>
+                    <p>{{item.CreatedAt | date: "dd/MM/YY"}}
+                    </p>
                 </div>
                 <div class="action-btns-container">
                     <i class="fa fa-edit action-btns"  (click)="onClickEditNews(item)"></i>
                     <i class="fa fa-remove action-btns"  (click)="onDeleteNews(item.id)"></i>
-                    <i *ngIf="selectedNewsType == 'drafts'" class="fa fa-star-o action-btns" aria-label="archive news" (click)="onMoveNewsToDifferentType(item.id,'archive')"></i>
+                    <i *ngIf="selectedNewsType == 'draft'" class="fa fa-star-o action-btns" aria-label="archive news" (click)="onMoveNewsToDifferentType(item.id,'archive')"></i>
                     <i *ngIf="selectedNewsType == 'archived'" class="fa fa-star action-btns" aria-label=" un archive news" (click)="onMoveNewsToDifferentType(item.id,'draft')"></i>
                     <i class="fa fa-cloud-upload action-btns" aria-lable="publish news" (click)="onMoveNewsToDifferentType(item.id,'publish')"></i>
                 </div>
@@ -55,8 +61,8 @@
     </div>
     <div class="create-news-button">
         <input type="image" src="../../assets/tab.png" name="createNews" class="btTxt submit" id="createNews"
-            (click)="isShowCreateModal = true;" />
+            (click)="isShowCreateModal = true;modalValue=null; "  />
     </div>
-    <app-create-news *ngIf="isShowCreateModal" [newsForEdit]=modalValue (onClickClose)="closeModal()" (onClickSubmit)="createNews($event)">
+    <app-create-news *ngIf="isShowCreateModal" [newsForEdit]=modalValue (onClickClose)="closeModal()" (onClickSubmit)="createNews($event)" [boardList]="boards">
     </app-create-news>
 </section>
