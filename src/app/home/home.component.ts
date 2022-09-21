@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Board, News } from '../models/news.model';
 import { BoardsService } from '../services/boards.service';
+
+type Nullable<T> = T | null;
 
 @Component({
   selector: 'app-home',
@@ -18,8 +19,10 @@ export class HomeComponent implements OnInit {
   selectedNews: News[];
   isShowCreateModal = false;
   modalValue: News | any;
+  selectedNewsType = 'draft';
+  selectedBoard:Nullable<Board> = null;
 
-  constructor(private boardsService: BoardsService, private router: Router) {
+  constructor(private boardsService: BoardsService) {
     this.boards = [];
     this.draftNews = [];
     this.publishedNews = [];
@@ -27,20 +30,25 @@ export class HomeComponent implements OnInit {
     this.modalValue = null;
     this.isError = false;
     this.isLoading = true;
-    this.selectedNews = this.filteredNews();
+    this.selectedNews = this.filteredNews(this.selectedNewsType);
   }
 
   ngOnInit(): void {
     this.boardsService.retriveAllBoards().subscribe(data => {
       this.isLoading = false;
       this.boards = data;
-      this.onBoardItemClick(this.boards[0]);
+      this.selectedBoard = this.boards[0];
+      this.onBoardItemClick(this.selectedBoard);
     });
   }
 
 
-  onBoardItemClick(selectedBoardItem: Board) {
+  onBoardItemClick(selectedBoardItem: Nullable<Board>) {
     this.isLoading = true;
+    if(!selectedBoardItem) {
+      return;
+    }
+    this.selectedBoard = selectedBoardItem;
     this.boardsService.retrieveNewsByBoardId(selectedBoardItem.id).subscribe({
       next: (data) => {
         const { drafts, published, archives } = data;
@@ -48,7 +56,7 @@ export class HomeComponent implements OnInit {
         this.publishedNews = published;
         this.archivedNews = archives;
         this.isError = false;
-        this.selectedNews = this.filteredNews();
+        this.selectedNews = this.filteredNews(this.selectedNewsType);
       },
       error: (e) => {
         this.isLoading = false;
@@ -60,6 +68,7 @@ export class HomeComponent implements OnInit {
 
   filterByNewsType(event: any) {
     const { target: { value } } = event;
+    console.log(value);
     this.selectedNews = this.filteredNews(value);
   }
 
@@ -69,32 +78,29 @@ export class HomeComponent implements OnInit {
         return this.draftNews;
       case 'published':
         return this.publishedNews;
-      case 'archhived':
+      case 'archived':
         return this.archivedNews;
       default:
         return this.draftNews;
     }
   }
 
+  responseHandler = {
+    next: (x: any) => this.onBoardItemClick(this.selectedBoard),
+    error: (error:any) => {
+      this.isLoading = false;
+      this.isError = true;
+    },
+    complete: () => this.isLoading = false,
+  };
+
   createNews(formValue: any) {
     this.isLoading = true;
     this.isShowCreateModal = false;
     if (!this.modalValue) {
-      this.boardsService.createNews(formValue).subscribe({
-        next: (data) => {
-          console.log(data);
-          this.onBoardItemClick(this.boards[0]);
-        },
-        error: (e) => {
-          this.isLoading = false;
-          this.isError = true;
-        },
-        complete: () => this.isLoading = false
-      });
+      this.boardsService.createNews(formValue).subscribe(this.responseHandler);
     } else {
-      this.boardsService.editNews(formValue).subscribe(data => {
-        this.onBoardItemClick(this.boards[0]);
-      });
+      this.boardsService.editNews(formValue).subscribe(this.responseHandler);
     }
   }
 
@@ -110,11 +116,12 @@ export class HomeComponent implements OnInit {
 
   onDeleteNews(newsId: string) {
     if(confirm("Are you sure to delete? ")) {
-      this.boardsService.deleteNews(newsId).subscribe(data => {
-        console.log(data);
-        this.onBoardItemClick(this.boards[0]);
-      });
+      this.boardsService.deleteNews(newsId).subscribe(this.responseHandler);
     }
+  }
+
+  onMoveNewsToDifferentType(newsId: string,type: string) {
+    this.boardsService.postNewsTo(newsId,type).subscribe(this.responseHandler);
   }
 
 }

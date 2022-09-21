@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Board, News, NewsType } from '../models/news.model';
 
+const NEWS_URL = 'http://localhost:8080/v1/news/';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -23,10 +25,25 @@ export class BoardsService {
   }
 
   deleteNews(newsId: string) {
-    return this.http.delete('http://localhost:8080/v1/news/'+newsId);
+    return this.http.delete(NEWS_URL+newsId);
   }
 
+
   editNews(news: News) {
-    return this.http.put('http://localhost:8080/v1/news/',news);
+    return this.http.put(NEWS_URL,news);
   }
+
+  postNewsTo(newsId: string, type:string) {
+    let url = NEWS_URL+newsId;
+    switch(type) {
+      case 'draft': url += '/draft';
+      break;
+      case 'archive': url+= '/archive';
+      break;
+      case 'publish': url+= '/published';
+      break;
+    }
+    return this.http.post(url,null);
+  }
+
 }
