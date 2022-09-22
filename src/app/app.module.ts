@@ -9,6 +9,7 @@ import { CreateNewsComponent } from './create-news/create-news.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { NewsComponent } from './news/news.component';
+import { FormatDatePipe } from './pipes/format-date.pipe';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { NewsComponent } from './news/news.component';
     LoginComponent,
     HomeComponent,
     NewsComponent,
-    CreateNewsComponent
+    CreateNewsComponent,
+    FormatDatePipe
   ],
   imports: [
     BrowserModule,

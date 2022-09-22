@@ -5,7 +5,7 @@
 
 .boards {
     align-items: stretch;
-    overflow-y: hidden;
+    overflow: hidden;
     position: relative;
     height: auto;
 }
@@ -50,7 +50,7 @@ ul.board-list>li:last-child {
 }
 
 .inactive {
-    background-color: #5cdb94;
+    background-color: var(--sub-font-color);
     color: var(--main-font-color);
 }
 
@@ -76,8 +76,8 @@ ul.board-list>li:last-child {
 
 .news-container {
     margin-top: 2vh;
-    box-shadow: 0 4px 17px rgb(159 199 174);
-    background: #EDF5E0;
+    box-shadow: 0 5px 10px rgba(154,160,185,.05), 0 15px 40px rgba(166,173,201,.2);
+    background: #FFFFFF;
     color: var(--main-font-color);
     padding: 10px;
     contain: content;
@@ -92,6 +92,11 @@ ul.board-list>li:last-child {
     padding: 2px 16px;
     overflow-y: auto;
     margin-top: 13px;
+}
+
+.news-meta-details {
+    font-size: smaller;
+    margin-top: 15px;
 }
 
 .error-block {

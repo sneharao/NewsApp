@@ -38,9 +38,10 @@
                 <div class="news-details">
                     <h4>{{item.title}}</h4>
                     <p>{{item.description}}</p>
-                    <p style="margin-top:5px;"> - {{item.author}}</p>
-                    <p>{{item.CreatedAt | date: "dd/MM/YY"}}
-                    </p>
+                    <div class="news-meta-details">
+                    <p> <b>Created by:</b>{{item.author}}</p>
+                    <p>{{item.CreatedAt | formatDate}}</p>
+                    </div>
                 </div>
                 <div class="action-btns-container">
                     <i class="fa fa-edit action-btns"  (click)="onClickEditNews(item)"></i>
