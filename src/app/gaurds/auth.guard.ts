@@ -11,9 +11,8 @@ import { Observable } from 'rxjs';
 export class AuthGuard implements CanActivate {
   constructor(private router: Router) {
   }
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+  canActivate()
+  {
     // Retrieves logged in user id from sessionStorage 
     // If present then allow to go to home page else redirect to login
     if (sessionStorage.getItem('userId'))

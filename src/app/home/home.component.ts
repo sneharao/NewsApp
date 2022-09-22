@@ -96,7 +96,6 @@ export class HomeComponent implements OnInit {
    */
   onSelectNewsType(event: any) {
     const { target: { value } } = event;
-    console.log(value);
     this.selectedNewsType = value;
     this.selectedNews = this.filteredNews(value);
   }
