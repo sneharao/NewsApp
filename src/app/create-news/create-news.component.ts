@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Board, News } from '../models/news.model';
 
 @Component({
@@ -15,11 +15,11 @@ export class CreateNewsComponent implements OnInit {
   title = '';
 
   newsForm = new FormGroup({
-    boardId: new FormControl(''),
-    author: new FormControl(''),
-    title: new FormControl(''),
-    description: new FormControl(''),
-    imageURL: new FormControl(''),
+    boardId: new FormControl('',[Validators.required]),
+    author: new FormControl('',[Validators.required,Validators.email]),
+    title: new FormControl('',[Validators.required]),
+    description: new FormControl('',[Validators.required]),
+    imageURL: new FormControl('',[Validators.required]),
   });
 
   constructor() { }
@@ -35,10 +35,14 @@ export class CreateNewsComponent implements OnInit {
     }
   }
   onClickSubmitButton() {
-    if (this.newsForEdit) {
-      this.onClickSubmit.emit({ ...this.newsForm.value, id: this.newsForEdit.id });
+    if(this.newsForm.valid) {
+      if (this.newsForEdit) {
+        this.onClickSubmit.emit({ ...this.newsForm.value, id: this.newsForEdit.id });
+      } else {
+        this.onClickSubmit.emit(this.newsForm.value);
+      }
     } else {
-      this.onClickSubmit.emit(this.newsForm.value);
+      alert('Please enter valid values');
     }
   }
   onClickCloseButton() {

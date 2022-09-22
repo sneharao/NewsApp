@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Board, News, NewsType } from '../models/news.model';
 
-const NEWS_URL = 'http://localhost:8080/v1/news/';
+export const NEWS_URL = 'http://localhost:8080/v1/news/';
+export const BOARDS_URL = 'http://localhost:8080/v1/board';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class BoardsService {
   constructor(private http: HttpClient) { }
 
   retriveAllBoards(): Observable<Board[]> {
-    return this.http.get<Board[]>('http://localhost:8080/v1/board');
+    return this.http.get<Board[]>(BOARDS_URL);
   }
 
   retrieveNewsByBoardId(boardId: string): Observable<NewsType> {
