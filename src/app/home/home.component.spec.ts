@@ -3,7 +3,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { of, throwError } from 'rxjs';
 import { CreateNewsComponent } from '../create-news/create-news.component';
 import { FormatDatePipe } from '../pipes/format-date.pipe';
-import { BoardsService } from '../services/boards.service';
+import { NewsService } from '../services/news.service';
 
 import { HomeComponent } from './home.component';
 const mockBoardResponse = [{ "id": "en", "name": "England" }, { "id": "de", "name": "Deutsch" }];
@@ -12,15 +12,15 @@ const mockNewsItemResponse = {"drafts":[{"id":"5c22dfcd-3f32-bab0-5b1a-209864d99
 describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
-  let boardsServiceSpy = jasmine.createSpyObj("BoardsService", ['retriveAllBoards', 'retrieveNewsByBoardId', 'createNews', 'editNews', 'deleteNews', 'postNewsTo']);
-  boardsServiceSpy.retriveAllBoards.and.returnValue(of(mockBoardResponse));
-  boardsServiceSpy.retrieveNewsByBoardId.and.returnValue(of({"drafts":[],"published":[],"archives":[]}));
+  let newsServiceSpy = jasmine.createSpyObj("NewsService", ['retriveAllBoards', 'retrieveNewsByBoardId', 'createNews', 'editNews', 'deleteNews', 'postNewsTo']);
+  newsServiceSpy.retriveAllBoards.and.returnValue(of(mockBoardResponse));
+  newsServiceSpy.retrieveNewsByBoardId.and.returnValue(of({"drafts":[],"published":[],"archives":[]}));
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports:[FormsModule, ReactiveFormsModule],
       declarations: [HomeComponent, FormatDatePipe, CreateNewsComponent],
-      providers: [{ provide: BoardsService, useValue: boardsServiceSpy }]
+      providers: [{ provide: NewsService, useValue: newsServiceSpy }]
     })
       .compileComponents();
   });
@@ -38,13 +38,13 @@ describe('HomeComponent', () => {
   it('should have two boards displayed on response to get all boards api', () => {
     expect(component.boards.length).toBe(2);
     mockBoardResponse.push({ "id": "it", "name": "Italian" })
-    boardsServiceSpy.retriveAllBoards.and.returnValue(of(mockBoardResponse));
+    newsServiceSpy.retriveAllBoards.and.returnValue(of(mockBoardResponse));
     fixture.detectChanges();
     expect(component.boards.length).toBe(3);
   });
 
   it('should show empty block when on click of board , service gives empty newslist', () => {
-    boardsServiceSpy.retrieveNewsByBoardId.and.returnValue(of({"drafts":[],"published":[],"archives":[]}));
+    newsServiceSpy.retrieveNewsByBoardId.and.returnValue(of({"drafts":[],"published":[],"archives":[]}));
     component.onBoardItemClick({ id: "it", name: "Italian" });
     fixture.detectChanges();
     expect(fixture.debugElement.nativeElement.querySelector('.alignCenter').textContent)
@@ -52,7 +52,7 @@ describe('HomeComponent', () => {
   });
 
   it('should show error block when on click of board , service gives error', () => {
-    boardsServiceSpy.retrieveNewsByBoardId.and.returnValue(throwError(()=>new Error('unavailable')));
+    newsServiceSpy.retrieveNewsByBoardId.and.returnValue(throwError(()=>new Error('unavailable')));
     component.onBoardItemClick({ id: "la", name: "Latin" });
     fixture.detectChanges();
     expect(fixture.debugElement.nativeElement.querySelector('.alignCenter').textContent)
@@ -60,7 +60,7 @@ describe('HomeComponent', () => {
   });
 
   it('should show news block when on click of board , service returns 3 news items', () => {
-    boardsServiceSpy.retrieveNewsByBoardId.and.returnValue(of(mockNewsItemResponse));
+    newsServiceSpy.retrieveNewsByBoardId.and.returnValue(of(mockNewsItemResponse));
     component.onBoardItemClick({ id: "la", name: "Latin" });
     component.selectedNewsType = 'draft';
     fixture.detectChanges();
@@ -69,7 +69,7 @@ describe('HomeComponent', () => {
   });
 
   it('should show default draft news initially, service returns 3 draft news', () => {
-    boardsServiceSpy.retrieveNewsByBoardId.and.returnValue(of(mockNewsItemResponse));
+    newsServiceSpy.retrieveNewsByBoardId.and.returnValue(of(mockNewsItemResponse));
     component.onBoardItemClick({ id: "la", name: "Latin" });
     fixture.detectChanges();
 
@@ -78,9 +78,9 @@ describe('HomeComponent', () => {
   });
 
   it('should show published news when user selects published from dropdown , service returns no publish news items', () => {
-    boardsServiceSpy.retrieveNewsByBoardId.and.returnValue(of(mockNewsItemResponse));
+    newsServiceSpy.retrieveNewsByBoardId.and.returnValue(of(mockNewsItemResponse));
     component.onBoardItemClick({ id: "la", name: "Latin" });
-    component.filterByNewsType({ target: { value:"published" } });
+    component.onSelectNewsType({ target: { value:"published" } });
     fixture.detectChanges();
 
     expect(component.selectedNewsType).toBe('published');
@@ -88,9 +88,9 @@ describe('HomeComponent', () => {
   });
 
   it('should show news when user selects archive from dropdown , service returns 2 archive news items', () => {
-    boardsServiceSpy.retrieveNewsByBoardId.and.returnValue(of(mockNewsItemResponse));
+    newsServiceSpy.retrieveNewsByBoardId.and.returnValue(of(mockNewsItemResponse));
     component.onBoardItemClick({ id: "la", name: "Latin" });
-    component.filterByNewsType({ target: { value:"archived" } });
+    component.onSelectNewsType({ target: { value:"archived" } });
     fixture.detectChanges();
 
     expect(component.selectedNewsType).toBe('archived');
@@ -113,19 +113,19 @@ describe('HomeComponent', () => {
   });
 
   it('on click of delete button of news and should delete news by calling delete api', () => {
-    boardsServiceSpy.deleteNews.and.returnValue(of({}));
+    newsServiceSpy.deleteNews.and.returnValue(of({}));
     component.onDeleteNews(mockNewsItemResponse.drafts[0].id);    
     fixture.detectChanges();
     const confirm = spyOn(window,'confirm');
     confirm.and.returnValue(true);
-    expect(boardsServiceSpy.deleteNews).toHaveBeenCalled();
+    expect(newsServiceSpy.deleteNews).toHaveBeenCalled();
   });
 
   it('on click of delete button of news and should show confirm dialog', () => {
-    boardsServiceSpy.postNewsTo.and.returnValue(of({}));
+    newsServiceSpy.postNewsTo.and.returnValue(of({}));
     component.onMoveNewsToDifferentType(mockNewsItemResponse.drafts[0].id, 'archive');    
     fixture.detectChanges();
-    expect(boardsServiceSpy.postNewsTo).toHaveBeenCalled();
+    expect(newsServiceSpy.postNewsTo).toHaveBeenCalled();
   });
 
   it('on call of closeModal should close modal and reset modalValue', () => {
@@ -135,23 +135,23 @@ describe('HomeComponent', () => {
   });
 
   it('on call of createNews should create news using news api', () => {
-    boardsServiceSpy.createNews.and.returnValue(of({}));
+    newsServiceSpy.createNews.and.returnValue(of({}));
     component.createNews(mockNewsItemResponse.drafts[0]);
-    expect(boardsServiceSpy.createNews).toHaveBeenCalled();
+    expect(newsServiceSpy.createNews).toHaveBeenCalled();
   });
 
   it('on call of createNews with updated valued should edit news using news api', () => {
-    boardsServiceSpy.editNews.and.returnValue(of({}));
+    newsServiceSpy.editNews.and.returnValue(of({}));
     component.modalValue = {...mockNewsItemResponse.drafts[0], title: 'Updated title'}
     component.createNews(mockNewsItemResponse.drafts[0]);
-    expect(boardsServiceSpy.editNews).toHaveBeenCalled();
+    expect(newsServiceSpy.editNews).toHaveBeenCalled();
   });
 
   xit('should display error when createNews api return an error', () => {
-    boardsServiceSpy.createNews.and.returnValue(of(throwError(()=>new Error('unavailable'))));
+    newsServiceSpy.createNews.and.returnValue(of(throwError(()=>new Error('unavailable'))));
     component.createNews(mockNewsItemResponse.drafts[0]);
     fixture.detectChanges();
-    expect(boardsServiceSpy.createNews).toHaveBeenCalled();
+    expect(newsServiceSpy.createNews).toHaveBeenCalled();
     expect(component.isError).toBeTruthy()
     expect(fixture.debugElement.nativeElement.querySelector('.alignCenter').textContent)
     .toBe('An error has occured ');

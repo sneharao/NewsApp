@@ -82,21 +82,4 @@ describe('LoginComponent', () => {
       expect(alertSpy).toHaveBeenCalledWith('Please fill valid values');
     });
   }));
-
-
-
-
-
-
-
-
-
-  // it('should not allow user to navigate when form is not valid', () => {
-  //   const formTest = ({ emailId: 'sneha.com', password: 'sne' });
-  //   component.onLogin(formTest);
-  //   const routerSpy = spyOn(router,'navigate');
-  //   expect(routerSpy).not.toHaveBeenCalled();
-
-  // });
-
 });

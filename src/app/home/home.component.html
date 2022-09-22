@@ -12,7 +12,7 @@
                     </div>
                 </li>
                 <li class="board-item">
-                    <select (change)="filterByNewsType($event)" [(ngModel)]="selectedNewsType">
+                    <select (change)="onSelectNewsType($event)" [(ngModel)]="selectedNewsType">
                         <option value="draft">Drafts</option>
                         <option value="published">Published</option>
                         <option value="archived">Archived</option>

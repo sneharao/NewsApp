@@ -1,19 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 
-import { BoardsService, BOARDS_URL, NEWS_URL } from './boards.service';
+import { NewsService, BOARDS_URL, NEWS_URL } from './news.service';
 
 const mockNewsForEdit = {"id":"5c22df","boardId":"de","author":"slds@dfjk.com","title":"Panel says US adults should get routine screening for anxiety","description":"The draft guidance comes amid a surge in mental health concerns following the Covid-19 pandemic.","imageURL":"https://ichef.bbci.co.uk/news/1024/branded_news/AB8F/production/_126791934_gettyimages-1327080394-1-1.jpg","status":"draft","CreatedAt":"2022-09-21T13:03:40.041100337Z"};
 
-describe('BoardsService', () => {
-  let service: BoardsService;
+describe('NewsService', () => {
+  let service: NewsService;
   let httpClientSpy = jasmine.createSpyObj("HttpClient", ['get', 'post', 'put', 'delete']);
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [{provide :HttpClient, useValue: httpClientSpy}]
     });
-    service = TestBed.inject(BoardsService);
+    service = TestBed.inject(NewsService);
   });
 
   it('should be created', () => {

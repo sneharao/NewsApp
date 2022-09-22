@@ -1,3 +1,6 @@
+/**
+ * Modal or types used in the application
+ */
 export type Nullable<T> = T | null;
 
 export type Board = {

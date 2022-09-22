@@ -11,6 +11,10 @@ const mockNewsToEdit = {
     "status": "draft",
     "CreatedAt": "2022-09-21T13:03:40.041100337Z"
   };
+
+/**
+ * Mock component , for test case use only
+ */
   
 @Component({
     selector: 'parent-stub',
