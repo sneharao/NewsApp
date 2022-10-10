@@ -147,13 +147,4 @@ describe('HomeComponent', () => {
     expect(newsServiceSpy.editNews).toHaveBeenCalled();
   });
 
-  xit('should display error when createNews api return an error', () => {
-    newsServiceSpy.createNews.and.returnValue(of(throwError(()=>new Error('unavailable'))));
-    component.createNews(mockNewsItemResponse.drafts[0]);
-    fixture.detectChanges();
-    expect(newsServiceSpy.createNews).toHaveBeenCalled();
-    expect(component.isError).toBeTruthy()
-    expect(fixture.debugElement.nativeElement.querySelector('.alignCenter').textContent)
-    .toBe('An error has occured ');
-  });
 });
