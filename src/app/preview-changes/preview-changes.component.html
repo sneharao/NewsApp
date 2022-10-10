@@ -3,6 +3,8 @@
 <img [src]="enteredForm.imageURL" class="image" />
 <p>{{dateTime | formatDate}}</p>
 <h4>{{enteredForm.title}}</h4>
-<p class="description" [ngClass]="{'add-scroll':hasClickedReadMore}">{{enteredForm.description}}</p>
+<p class="description" [ngClass]="{'add-scroll':hasClickedReadMore}">
+    {{(hasClickedReadMore) ? enteredForm.description : enteredForm.description | slice:0:40}}
+</p>
 <span class="read-more" (click)="onClickOfReadMore()" *ngIf="!hasClickedReadMore">...Read more</span>
 </div>
