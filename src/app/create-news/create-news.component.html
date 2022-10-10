@@ -1,7 +1,6 @@
-<div class="create-modal">
-  <div class="create-modal-content">
+<div class="create-news-layout">
+  <div class="create-news-form-container">
     <header>
-      <span (click)="onClickCloseButton()" class="close-icon">&times;</span>
       <h2>{{title}}</h2>
     </header>
     <div class="news-form">
@@ -15,7 +14,6 @@
           </select>
         </ng-template>
         
-
         <label for="author">Author: </label>
         <input id="author" type="text" formControlName="author">
 
@@ -31,5 +29,8 @@
         <button type="submit">Submit</button>
       </form>
     </div>
+  </div>
+  <div class="preview-changes">
+    <app-preview-changes [enteredForm]="newsForm.value"></app-preview-changes>
   </div>
 </div>

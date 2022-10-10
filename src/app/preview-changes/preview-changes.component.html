@@ -1,0 +1,8 @@
+<div class="preview-changes-container">
+<h2 class="app-title">Upday</h2>
+<img [src]="enteredForm.imageURL" class="image" />
+<p>{{dateTime | formatDate}}</p>
+<h4>{{enteredForm.title}}</h4>
+<p class="description" [ngClass]="{'add-scroll':hasClickedReadMore}">{{enteredForm.description}}</p>
+<span class="read-more" (click)="onClickOfReadMore()" *ngIf="!hasClickedReadMore">...Read more</span>
+</div>

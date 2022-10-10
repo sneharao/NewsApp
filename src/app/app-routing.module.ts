@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CreateNewsComponent } from './create-news/create-news.component';
 import { AuthGuard } from './gaurds/auth.guard';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
@@ -12,7 +13,8 @@ const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   //AuthGaurd , prevents user to directly access home without login in
-  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] }
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'create-news', component: CreateNewsComponent }
 ];
 
 @NgModule({

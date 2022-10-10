@@ -19,11 +19,11 @@ export class CreateNewsComponent implements OnInit {
 
   // Form to be filled with all mandatory details for news to be created
   newsForm = new FormGroup({
-    boardId: new FormControl('', [Validators.required]),
-    author: new FormControl('', [Validators.required, Validators.email]),
-    title: new FormControl('', [Validators.required]),
-    description: new FormControl('', [Validators.required]),
-    imageURL: new FormControl('', [Validators.required]),
+    boardId: new FormControl('en', [Validators.required]),
+    author: new FormControl('sneha@gmail.com', [Validators.required, Validators.email]),
+    title: new FormControl(`UN alarm as Iran cracks down on anti-hijab protests sparked by woman's death`, [Validators.required]),
+    description: new FormControl('Three people were reportedly killed on Monday at protests over the death in custody of Mahsa Amini.Three people were reportedly killed on Monday at protests over the death in custody of Mahsa Amini.', [Validators.required]),
+    imageURL: new FormControl('https://ichef.bbci.co.uk/news/1024/branded_news/14ABC/production/_126786648_mediaitem126786229.jpg', [Validators.required])
   });
 
   constructor() { }

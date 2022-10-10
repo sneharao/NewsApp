@@ -71,3 +71,19 @@ input {
         padding: 15px;
     }
 }
+
+.create-news-form-container {
+    width: 70%;
+    /* height: 500px; */
+    margin-left: 30px;
+}
+
+.preview-changes {
+   width: 30%;
+   margin: 5px;
+   border: 1px solid black;
+   border-radius: 26px;
+}
+.create-news-layout {
+    display: flex;
+}

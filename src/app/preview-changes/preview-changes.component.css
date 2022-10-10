@@ -1,0 +1,28 @@
+.preview-changes-container {
+    padding: 10px;
+}
+
+.image {
+    height: 273px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.app-title {
+    position: absolute;
+    color: white;
+}
+
+.description {
+    height: 50px;
+    overflow-y: hidden;
+}
+.add-scroll {
+    overflow-y: scroll ;
+}
+.read-more {
+    font-size: smaller;
+    color: blue;
+    cursor: pointer;
+}
+

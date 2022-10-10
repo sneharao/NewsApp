@@ -61,8 +61,8 @@
     </div>
     <div class="create-news-button">
         <input type="image" src="../../assets/tab.png" name="createNews" class="btTxt submit" id="createNews"
-            (click)="isShowCreateModal = true;modalValue=null; "  />
+            (click)="navigateToCreateNews()"  />
     </div>
-    <app-create-news *ngIf="isShowCreateModal" [newsForEdit]=modalValue (onClickClose)="closeModal()" (onClickSubmit)="createNews($event)" [boardList]="boards">
-    </app-create-news>
+    <!-- <app-create-news *ngIf="isShowCreateModal" [newsForEdit]=modalValue (onClickClose)="closeModal()" (onClickSubmit)="createNews($event)" [boardList]="boards">
+    </app-create-news> -->
 </section>

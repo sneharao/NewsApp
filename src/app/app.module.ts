@@ -9,6 +9,7 @@ import { CreateNewsComponent } from './create-news/create-news.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { FormatDatePipe } from './pipes/format-date.pipe';
+import { PreviewChangesComponent } from './preview-changes/preview-changes.component';
 
 /**
  * Main Module where we declare all our components, pipes, angular modules 
@@ -20,7 +21,8 @@ import { FormatDatePipe } from './pipes/format-date.pipe';
     LoginComponent,
     HomeComponent,
     CreateNewsComponent,
-    FormatDatePipe
+    FormatDatePipe,
+    PreviewChangesComponent,
   ],
   imports: [
     BrowserModule,

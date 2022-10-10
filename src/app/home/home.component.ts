@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Board, News, Nullable } from '../models/news.model';
 import { NewsService } from '../services/news.service';
 
@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
   selectedNewsType = 'draft';
   selectedBoard: Nullable<Board> = null;
 
-  constructor(private newsService: NewsService) {
+  constructor(private newsService: NewsService, private router: Router) {
     this.boards = [];
     this.draftNews = [];
     this.publishedNews = [];
@@ -180,6 +180,10 @@ export class HomeComponent implements OnInit {
    */
   onMoveNewsToDifferentType(newsId: string, type: string) {
     this.newsService.postNewsTo(newsId, type).subscribe(this.responseHandler);
+  }
+
+  navigateToCreateNews() {
+    this.router.navigate(['/create-news']);
   }
 
 }
